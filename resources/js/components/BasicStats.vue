@@ -3,20 +3,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 
-                    <div>Subscription duration: {{ picked }}</div>
-
-                    <input type="radio" name="duration" value="MONTHLY" v-model="picked" />
-                    <label for="one">Monthly - $10/month</label>
-                    <br>
-                    <input type="radio" name="duration" value="YEARLY" v-model="picked" />
-                    <label for="two">Yearly - $100</label>
-                    <!-- Putting the empty container you plan to pass to
-                    `braintree.dropin.create` inside a form will make layout and flow
-                    easier to manage -->
-                    <form>
-                        <div id="dropin-container"></div>
-                    </form>
-                    <button id="submit-button">Buy Subscription</button>
+                    
             </div>
         </div>
     </div>

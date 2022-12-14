@@ -12,7 +12,7 @@ const DahboardLayout = () => import('@/components/layouts/Default.vue')
 
 /* Authenticated Component */
 const Dashboard = () => import('@/components/Dashboard.vue')
-const Example = () => import('@/components/ExampleComponent.vue')
+const Subscribe = () => import('@/components/SubscribeComponent.vue')
 const AdvancedStats = () => import('@/components/AdvancedStats.vue')
 
 /* Authenticated Component */
@@ -36,14 +36,40 @@ const routes = [
             title: `Register`
         }
     },
-    {
-        name: "example",
-        path: "/example",
-        component: Example,
+    {   
+        path: "/subscribe",
+        component: DahboardLayout,
         meta: {
-            middleware: "auth",
-            title: `Example`
-        }
+            middleware: "auth"
+        },
+        children: [
+            {
+                name: "subscribe",
+                path: "/subscribe",
+                component: Subscribe,
+                meta: {
+                    middleware: "auth",
+                    title: `Subscribe`
+                }
+            }
+        ]
+    },
+    {
+        path: "/advanced",
+        component: DahboardLayout,
+        meta: {
+            middleware: "paid"
+        },
+        children: [
+            {
+                name: "advanced",
+                path: "/",
+                component: AdvancedStats,
+                meta: {
+                    title: `Advanced Stats`
+                }
+            }
+        ]
     },
     {
         path: "/",
@@ -59,17 +85,7 @@ const routes = [
                 meta: {
                     title: `Dashboard`
                 }
-            },
-            {
-                name: "advanced",
-                path: '/advanced',
-                component: AdvancedStats,
-                meta: {
-                    middleware: "paid",
-                    title: `Advanced Stats`
-                }
             }
-
         ]
     }
 ]
@@ -88,13 +104,13 @@ router.beforeEach((to, from, next) => {
         next()
     } else if (to.meta.middleware == "auth") {
         if (store.state.auth.authenticated) {
-            next({ name: "advanced" })
+            next()
         } else {
             next({ name: "login" })
         }
     } else if (to.meta.middleware == "paid") {
-        if (store.state.paid) {
-            next({ name: "advanced" })
+        if (store.state.auth.paid) {
+            next()
         } else {
             next({ name: "dashboard" })
         }

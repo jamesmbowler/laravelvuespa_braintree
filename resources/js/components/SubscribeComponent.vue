@@ -23,6 +23,7 @@
 </template>
 
 <script>
+    import { mapActions } from 'vuex'
     import dropin from 'braintree-web-drop-in';
     export default {
         data() {
@@ -31,7 +32,13 @@
                 picked: 'MONTHLY'
             };
         },
+        methods: {
+            ...mapActions({
+                signIn:'auth/login'
+            }),
+        },
         created() {
+
             const fetchData = async () => {
                 await axios.get(
                     '/api/braintree/clientToken'
@@ -51,8 +58,6 @@
                         }
                         button.addEventListener('click', function () {
                             instance.requestPaymentMethod(function (requestPaymentMethodErr, payload) {
-                                
-                                console.log(payload);
                                 axios.post(
                                     '/api/checkout', {
                                         payment_method_nonce: payload.nonce,
@@ -60,7 +65,9 @@
                                         time_period: document.querySelector('input[name = duration]:checked').value
                                     }
                                 ).then((response) => {
-                                    console.log(response.data);
+                                    if (response.data.status == 'success'){
+                                        //trigger login again to update user state
+                                    }
                                 });
                             });
                         });

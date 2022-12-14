@@ -3,6 +3,7 @@
 ```
 composer install
 cp .env.example .env
+(Fill in braintree info in .env)
 php artisan key:generate
 php artisan migrate
 npm install

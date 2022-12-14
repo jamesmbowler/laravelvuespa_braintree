@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdvancedStatsController;
 use App\Http\Controllers\BasicStatsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;

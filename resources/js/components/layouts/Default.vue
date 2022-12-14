@@ -14,6 +14,9 @@
                         <li v-if="paid" class="nav-item">
                             <router-link :to="{name:'advanced'}" class="nav-link">Advanced <span class="sr-only"></span></router-link>
                         </li>
+                        <li v-else class="nav-item">
+                            <router-link :to="{name:'subscribe'}" class="nav-link">Subscribe <span class="sr-only"></span></router-link>
+                        </li>
                     </ul>
                     <div class="d-flex">
                         <ul class="navbar-nav">
