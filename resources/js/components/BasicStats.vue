@@ -28,7 +28,13 @@
         data() {
             return {
                 token: "",
-                picked: 'MONTHLY'
+                picked: 'MONTHLY',
+                hideSubmit: true,
+                payment_method_nonce: "",
+                paypal_info: {
+                    email: "",
+                    payerId: ""
+                }
             };
         },
         created() {

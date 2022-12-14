@@ -13,6 +13,8 @@ const DahboardLayout = () => import('@/components/layouts/Default.vue')
 /* Authenticated Component */
 const Dashboard = () => import('@/components/Dashboard.vue')
 const Example = () => import('@/components/ExampleComponent.vue')
+const AdvancedStats = () => import('@/components/AdvancedStats.vue')
+
 /* Authenticated Component */
 
 const routes = [
@@ -57,7 +59,17 @@ const routes = [
                 meta: {
                     title: `Dashboard`
                 }
+            },
+            {
+                name: "advanced",
+                path: '/advanced',
+                component: AdvancedStats,
+                meta: {
+                    middleware: "paid",
+                    title: `Advanced Stats`
+                }
             }
+
         ]
     }
 ]
@@ -74,11 +86,17 @@ router.beforeEach((to, from, next) => {
             next({ name: "dashboard" })
         }
         next()
-    } else {
+    } else if (to.meta.middleware == "auth") {
         if (store.state.auth.authenticated) {
-            next()
+            next({ name: "advanced" })
         } else {
             next({ name: "login" })
+        }
+    } else if (to.meta.middleware == "paid") {
+        if (store.state.paid) {
+            next({ name: "advanced" })
+        } else {
+            next({ name: "dashboard" })
         }
     }
 })

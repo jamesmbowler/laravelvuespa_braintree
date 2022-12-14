@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BasicStatsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BraintreeController;
@@ -22,3 +23,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/braintree/clientToken', [BraintreeController::class, 'clientToken']);
 Route::post('/checkout', [BraintreeController::class, 'checkout']);
 
+Route::get('/stats', [BasicStatsController::class, 'stats']);
+Route::get('/advanced_stats', [AdvancedStatsController::class, 'stats']);

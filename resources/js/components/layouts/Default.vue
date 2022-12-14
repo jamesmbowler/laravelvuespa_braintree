@@ -11,6 +11,9 @@
                         <li class="nav-item">
                             <router-link :to="{name:'dashboard'}" class="nav-link">Home <span class="sr-only">(current)</span></router-link>
                         </li>
+                        <li v-if="paid" class="nav-item">
+                            <router-link :to="{name:'advanced'}" class="nav-link">Advanced <span class="sr-only"></span></router-link>
+                        </li>
                     </ul>
                     <div class="d-flex">
                         <ul class="navbar-nav">
@@ -39,7 +42,8 @@ export default {
     name:"default-layout",
     data(){
         return {
-            user:this.$store.state.auth.user
+            user:this.$store.state.auth.user,
+            paid:this.$store.state.auth.user.activeSubscription
         }
     },
     methods:{

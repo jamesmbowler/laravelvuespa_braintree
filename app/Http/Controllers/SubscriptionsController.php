@@ -28,16 +28,6 @@ class SubscriptionsController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreSubscriptionsRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreSubscriptionsRequest $request)
-    {
-        //
-    }
 
     /**
      * Display the specified resource.

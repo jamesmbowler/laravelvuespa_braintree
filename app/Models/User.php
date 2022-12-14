@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Enums\SubscriptionStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -22,6 +24,9 @@ class User extends Authenticatable
         'email',
         'password',
     ];
+    protected $appends = array('activeSubscription');
+
+    public $activeSubscription = true;
 
     /**
      * The attributes that should be hidden for serialization.
@@ -41,4 +46,26 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Get the phone associated with the user.
+     */
+    public function subscription()
+    {
+        return $this->hasMany(Subscriptions::class);
+    }
+
+
+    /**
+     * Get the phone associated with the user.
+     */
+    public function getActiveSubscriptionAttribute()
+    {
+        return Subscriptions::where(
+            [
+                'user_id' => $this->id,
+                'status' => SubscriptionStatus::ACTIVE
+            ]
+        )->first();
+    }
 }

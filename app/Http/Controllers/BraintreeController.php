@@ -40,11 +40,9 @@ class BraintreeController extends Controller
                 $vaultId = $vault->customer->paypalAccounts[0]->token;
             }
             
-            $planId = "BRAINTREE_{$time_period}_NAME";
-            logger("plan id $planId");
             $sub = $this->gateway->subscription()->create([
                 'paymentMethodToken' => $vaultId,
-                'planId' => env($planId)
+                'planId' => env("BRAINTREE_{$time_period}_NAME")
             ]);
             if ($sub->success) {
                 $create['subscription_id'] = $sub->subscription->id;

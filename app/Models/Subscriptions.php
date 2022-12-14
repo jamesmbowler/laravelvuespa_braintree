@@ -24,4 +24,18 @@ class Subscriptions extends Model
      * @var array
      */
     protected $guarded = [];
+
+    /**
+     * We don't want all attributes shown to user
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
+        'paypal_billing_agreement_id',
+        'user_id',
+        'paypal_payer_id',
+        'braintree_vault_id',
+        'subscription_id'
+    ];
 }
